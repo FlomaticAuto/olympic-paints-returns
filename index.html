@@ -1,1 +1,289 @@
-﻿placeholder
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Returns Manager — Olympic Paints</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>var t=localStorage.getItem('oly-theme');if(t)document.documentElement.className=t;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+
+/* ── RAW DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  --_y50:#FEF9E0; --_y100:#FDF0A0; --_y200:#FAE04D;
+  --_y400:#F5C400; --_y600:#D4A800; --_y800:#A88000; --_y900:#6A5000;
+  --_n50:#E8EFF8; --_n100:#B8CCE8; --_n300:#6B9ED0;
+  --_n500:#2D6BA8; --_n700:#1A3D6E; --_n900:#0D2040; --_n950:#071022;
+  --_g0:#FFFFFF; --_g50:#F7F6F3; --_g100:#E8E7E2; --_g200:#C8C7C0;
+  --_g400:#949390; --_g600:#5C5B58; --_g800:#2E2E2C;
+  --_g900:#1A1A18; --_g950:#0D0D0B;
+  --_teal:#2D8C7A; --_teal-light:#C8EDE7; --_teal-dark:#1a5c50;
+  --_terra:#C97A3A; --_terra-light:#F7E0C8;
+  --_coral:#E86060; --_coral-light:#FDDCDC;
+  --_pink:#E87BAD; --_pink-light:#FCE4EF;
+  --_violet:#9B7DBF; --_violet-light:#EDE0F7;
+  --_sage:#7A8C55; --_ink:#5C6B7A;
+  --font-display:'Barlow Condensed',sans-serif;
+  --font-body:'Barlow',sans-serif;
+  --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-pill:50px;
+}
+.theme-light {
+  color-scheme:light;
+  --color-surface-page:var(--_g50); --color-surface-base:var(--_g0);
+  --color-surface-elevated:var(--_g0); --color-surface-sunken:var(--_g100);
+  --color-surface-overlay:rgba(0,0,0,0.04);
+  --color-surface-brand:var(--_y400); --color-surface-secondary:var(--_n700);
+  --color-text-primary:var(--_g950); --color-text-secondary:var(--_g600);
+  --color-text-tertiary:var(--_g400); --color-text-on-brand:var(--_g950);
+  --color-text-on-navy:var(--_g0);
+  --color-brand-primary:var(--_y400); --color-brand-hover:var(--_y600);
+  --color-brand-secondary:var(--_n700); --color-brand-accent:var(--_y400);
+  --color-border-subtle:var(--_g100); --color-border-default:var(--_g200);
+  --color-border-strong:var(--_g400); --color-border-brand:var(--_y400);
+  --color-success-bg:#EDF7F5; --color-success-fg:var(--_teal-dark); --color-success-bd:var(--_teal);
+  --color-warning-bg:var(--_y50); --color-warning-fg:var(--_y900); --color-warning-bd:var(--_y600);
+  --color-danger-bg:#FEF2F2; --color-danger-fg:#C0392B; --color-danger-bd:var(--_coral);
+  --color-info-bg:var(--_n50); --color-info-fg:var(--_n700); --color-info-bd:var(--_n500);
+  --color-neutral-bg:var(--_g100); --color-neutral-fg:var(--_g600); --color-neutral-bd:var(--_g400);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.08); --shadow-md:0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg:0 10px 30px rgba(0,0,0,0.10); --shadow-brand:0 4px 16px rgba(245,196,0,0.20);
+}
+.theme-dark {
+  color-scheme:dark;
+  --color-surface-page:var(--_g950); --color-surface-base:var(--_g900);
+  --color-surface-elevated:var(--_g800); --color-surface-sunken:var(--_g950);
+  --color-surface-overlay:rgba(255,255,255,0.04);
+  --color-surface-brand:var(--_y400); --color-surface-secondary:var(--_n700);
+  --color-text-primary:var(--_g100); --color-text-secondary:var(--_g400);
+  --color-text-tertiary:var(--_g600); --color-text-on-brand:var(--_g950);
+  --color-text-on-navy:var(--_g0);
+  --color-brand-primary:var(--_y400); --color-brand-hover:var(--_y200);
+  --color-brand-secondary:var(--_n700); --color-brand-accent:var(--_y400);
+  --color-border-subtle:rgba(255,255,255,0.06); --color-border-default:rgba(255,255,255,0.10);
+  --color-border-strong:rgba(255,255,255,0.20); --color-border-brand:var(--_y400);
+  --color-success-bg:rgba(45,140,122,0.12); --color-success-fg:var(--_teal-light); --color-success-bd:rgba(45,140,122,0.30);
+  --color-warning-bg:rgba(245,196,0,0.10); --color-warning-fg:var(--_y200); --color-warning-bd:rgba(245,196,0,0.25);
+  --color-danger-bg:rgba(232,96,96,0.12); --color-danger-fg:var(--_coral-light); --color-danger-bd:rgba(232,96,96,0.30);
+  --color-info-bg:rgba(26,61,110,0.30); --color-info-fg:var(--_n100); --color-info-bd:rgba(107,158,208,0.30);
+  --color-neutral-bg:rgba(255,255,255,0.05); --color-neutral-fg:var(--_g400); --color-neutral-bd:rgba(255,255,255,0.10);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.40); --shadow-md:0 4px 12px rgba(0,0,0,0.40);
+  --shadow-lg:0 10px 30px rgba(0,0,0,0.50); --shadow-brand:0 4px 20px rgba(245,196,0,0.15);
+}
+.theme-brand {
+  color-scheme:light;
+  --color-surface-page:var(--_y400); --color-surface-base:var(--_y200);
+  --color-surface-elevated:var(--_y50); --color-surface-sunken:var(--_y600);
+  --color-surface-overlay:rgba(0,0,0,0.05);
+  --color-surface-brand:var(--_y400); --color-surface-secondary:var(--_g950);
+  --color-text-primary:var(--_g950); --color-text-secondary:var(--_y900);
+  --color-text-tertiary:var(--_y800); --color-text-on-brand:var(--_g950);
+  --color-text-on-navy:var(--_g0);
+  --color-brand-primary:var(--_g950); --color-brand-hover:var(--_n700);
+  --color-brand-secondary:var(--_n700); --color-brand-accent:var(--_g950);
+  --color-border-subtle:rgba(0,0,0,0.08); --color-border-default:rgba(0,0,0,0.14);
+  --color-border-strong:rgba(0,0,0,0.25); --color-border-brand:var(--_g950);
+  --color-success-bg:rgba(45,140,122,0.12); --color-success-fg:var(--_teal-dark); --color-success-bd:var(--_teal);
+  --color-warning-bg:rgba(0,0,0,0.08); --color-warning-fg:var(--_y900); --color-warning-bd:var(--_y900);
+  --color-danger-bg:rgba(232,96,96,0.12); --color-danger-fg:#C0392B; --color-danger-bd:var(--_coral);
+  --color-info-bg:rgba(26,61,110,0.10); --color-info-fg:var(--_n900); --color-info-bd:var(--_n700);
+  --color-neutral-bg:rgba(0,0,0,0.06); --color-neutral-fg:var(--_y900); --color-neutral-bd:rgba(0,0,0,0.15);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.12); --shadow-md:0 4px 12px rgba(0,0,0,0.14);
+  --shadow-lg:0 10px 30px rgba(0,0,0,0.18); --shadow-brand:0 4px 16px rgba(0,0,0,0.15);
+}
+.theme-navy {
+  color-scheme:dark;
+  --color-surface-page:var(--_n950); --color-surface-base:var(--_n900);
+  --color-surface-elevated:var(--_n700); --color-surface-sunken:var(--_n950);
+  --color-surface-overlay:rgba(255,255,255,0.04);
+  --color-surface-brand:var(--_y400); --color-surface-secondary:var(--_n700);
+  --color-text-primary:var(--_g0); --color-text-secondary:var(--_n100);
+  --color-text-tertiary:var(--_n300); --color-text-on-brand:var(--_g950);
+  --color-text-on-navy:var(--_g0);
+  --color-brand-primary:var(--_y400); --color-brand-hover:var(--_y200);
+  --color-brand-secondary:var(--_n500); --color-brand-accent:var(--_y400);
+  --color-border-subtle:rgba(107,158,208,0.12); --color-border-default:rgba(107,158,208,0.20);
+  --color-border-strong:rgba(107,158,208,0.35); --color-border-brand:var(--_y400);
+  --color-success-bg:rgba(45,140,122,0.15); --color-success-fg:var(--_teal-light); --color-success-bd:rgba(45,140,122,0.35);
+  --color-warning-bg:rgba(245,196,0,0.12); --color-warning-fg:var(--_y200); --color-warning-bd:rgba(245,196,0,0.30);
+  --color-danger-bg:rgba(232,96,96,0.14); --color-danger-fg:var(--_coral-light); --color-danger-bd:rgba(232,96,96,0.35);
+  --color-info-bg:rgba(45,107,168,0.20); --color-info-fg:var(--_n100); --color-info-bd:rgba(107,158,208,0.35);
+  --color-neutral-bg:rgba(255,255,255,0.05); --color-neutral-fg:var(--_n300); --color-neutral-bd:rgba(255,255,255,0.12);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.50); --shadow-md:0 4px 12px rgba(0,0,0,0.50);
+  --shadow-lg:0 10px 30px rgba(0,0,0,0.60); --shadow-brand:0 4px 20px rgba(245,196,0,0.18);
+}
+
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--color-surface-page);color:var(--color-text-primary);font-family:var(--font-body);min-height:100vh}
+.theme-bar{display:flex;gap:4px;padding:8px 16px;background:var(--color-surface-secondary)}
+.theme-bar button{font-family:var(--font-body);font-size:12px;font-weight:500;padding:4px 12px;border-radius:var(--r-pill);border:1px solid rgba(255,255,255,0.20);background:transparent;color:var(--color-text-on-navy);cursor:pointer;transition:background .15s,color .15s}
+.theme-bar button:hover{background:rgba(255,255,255,0.10)}
+.theme-bar button.active{background:var(--color-brand-primary);color:var(--color-text-on-brand);border-color:var(--color-brand-primary)}
+.page-header{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;background:var(--color-surface-base);border-bottom:1px solid var(--color-border-default)}
+.header-brand{display:flex;align-items:center;gap:14px}
+.header-title{font-family:var(--font-display);font-weight:800;font-size:22px;text-transform:uppercase;color:var(--color-text-primary);letter-spacing:.04em}
+.header-subtitle{font-family:var(--font-body);font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.header-meta{text-align:right}
+.header-date{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--color-brand-primary);text-transform:uppercase}
+.header-gen{font-size:11px;color:var(--color-text-tertiary);margin-top:2px}
+.tab-nav{display:flex;background:var(--color-surface-base);border-bottom:1px solid var(--color-border-default);padding:0 32px;overflow-x:auto}
+.tab-btn{font-family:var(--font-display);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:12px 20px;background:transparent;border:none;border-bottom:3px solid transparent;color:var(--color-text-secondary);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
+.tab-btn:hover{color:var(--color-text-primary)}
+.tab-btn.active{color:var(--color-brand-primary);border-bottom-color:var(--color-brand-primary)}
+.tab-pane{display:none;padding:28px 32px}
+.tab-pane.active{display:block}
+.section-heading{font-family:var(--font-display);font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-primary);margin:0 0 16px 0;padding-bottom:8px;border-bottom:2px solid var(--color-brand-primary)}
+.section-subheading{font-family:var(--font-display);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin:24px 0 10px 0}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+@media(max-width:700px){.kpi-grid{grid-template-columns:1fr 1fr}}
+.kpi-card{background:var(--color-surface-elevated);border:1px solid var(--color-border-default);border-radius:var(--r-lg);padding:18px 16px;text-align:center;box-shadow:var(--shadow-sm)}
+.kpi-label{font-family:var(--font-body);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-secondary);margin-bottom:6px}
+.kpi-value{font-family:var(--font-display);font-weight:900;font-size:40px;color:var(--color-brand-primary);line-height:1}
+.kpi-value.success{color:var(--color-success-fg)}
+.kpi-value.danger{color:var(--color-danger-fg)}
+.kpi-value.neutral{color:var(--color-text-primary)}
+.table-wrap{overflow-x:auto;margin-bottom:8px}
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.07em;background:var(--color-surface-secondary);color:var(--color-text-on-navy);padding:10px 12px;text-align:left;border-bottom:2px solid var(--color-border-brand)}
+.data-table th.center{text-align:center}
+.data-table td{padding:9px 12px;border-bottom:1px solid var(--color-border-subtle);color:var(--color-text-primary);vertical-align:middle}
+.data-table td.center{text-align:center}
+.data-table tbody tr:nth-child(even){background:var(--color-surface-sunken)}
+.data-table tbody tr:hover{background:var(--color-surface-overlay)}
+.data-table tr.row-danger{background:var(--color-danger-bg) !important}
+.data-table tr.row-danger td{border-bottom-color:var(--color-danger-bd)}
+.data-table tr.row-warning{background:var(--color-warning-bg) !important}
+.data-table tr.row-warning td{border-bottom-color:var(--color-warning-bd)}
+.fw-bold{font-weight:700}
+.text-muted{color:var(--color-text-tertiary);font-size:12px}
+.success-text{color:var(--color-success-fg);font-weight:700}
+.danger-text{color:var(--color-danger-fg)}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:var(--r-pill);font-family:var(--font-body);font-size:11px;font-weight:600;border:1px solid;white-space:nowrap}
+.badge-pending{background:var(--color-neutral-bg);color:var(--color-neutral-fg);border-color:var(--color-neutral-bd)}
+.badge-progress{background:var(--color-info-bg);color:var(--color-info-fg);border-color:var(--color-info-bd)}
+.badge-reworked{background:var(--color-warning-bg);color:var(--color-warning-fg);border-color:var(--color-warning-bd)}
+.badge-completed{background:var(--color-success-bg);color:var(--color-success-fg);border-color:var(--color-success-bd)}
+.badge-written{background:var(--color-danger-bg);color:var(--color-danger-fg);border-color:var(--color-danger-bd)}
+.empty-state{color:var(--color-text-tertiary);font-style:italic;font-size:13px;padding:16px 0}
+.page-footer{padding:16px 32px;border-top:1px solid var(--color-border-subtle);font-size:11px;color:var(--color-text-tertiary);text-align:center}
+@media print{.theme-bar,.tab-nav{display:none !important}.tab-pane{display:block !important;page-break-after:always}}
+
+.kpi-grid{grid-template-columns:repeat(5,1fr)}
+@media(max-width:800px){.kpi-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="theme-bar">
+  <button onclick="olyTheme('theme-light',this)">Light</button>
+  <button onclick="olyTheme('theme-dark',this)" class="active">Dark</button>
+  <button onclick="olyTheme('theme-brand',this)">Brand</button>
+  <button onclick="olyTheme('theme-navy',this)">Navy</button>
+</div>
+
+<div class="page-header">
+  <div class="header-brand">
+    <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0">
+      <img src="logo.jpg" alt="Olympic Paints" width="44" height="44" style="display:block;width:100%;height:100%;object-fit:cover">
+    </div>
+    <div>
+      <div class="header-title">Returns Manager</div>
+      <div class="header-subtitle">Olympic Paints — Factory Returns Tracking</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="header-date">Live Dashboard</div>
+    <div class="header-gen">Generated 19 May 2026 22:13</div>
+  </div>
+</div>
+
+<div style="padding:28px 32px">
+
+  <div class="kpi-grid" style="margin-bottom:32px">
+    <div class="kpi-card"><div class="kpi-label">Total Units</div><div class="kpi-value">1</div></div>
+    <div class="kpi-card"><div class="kpi-label">Line Items</div><div class="kpi-value neutral">1</div></div>
+    <div class="kpi-card"><div class="kpi-label">Deliveries</div><div class="kpi-value neutral">1</div></div>
+    <div class="kpi-card"><div class="kpi-label">Rework Units</div><div class="kpi-value">0</div></div>
+    <div class="kpi-card"><div class="kpi-label">Written Off</div><div class="kpi-value danger">0</div></div>
+  </div>
+
+  <div style="background:var(--color-surface-base);border:1px solid var(--color-border-default);border-radius:12px;padding:24px;margin-bottom:24px">
+    <div class="section-heading">Return Type Breakdown</div>
+    <canvas id="rtChart" height="120"></canvas>
+  </div>
+
+  <div style="background:var(--color-surface-base);border:1px solid var(--color-border-default);border-radius:12px;padding:24px;margin-bottom:24px">
+    <div class="section-heading">By Supervisor</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr>
+          <th>Supervisor</th><th class="center">Units</th><th class="center">Line Items</th><th class="center">Latest Date</th>
+        </tr></thead>
+        <tbody><tr>
+          <td>SIPHO</td>
+          <td class="center">1</td>
+          <td class="center">1</td>
+          <td class="center">2026-05-19</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="background:var(--color-surface-base);border:1px solid var(--color-border-default);border-radius:12px;padding:24px;margin-bottom:24px">
+    <div class="section-heading">Top 10 Products by Units</div>
+    <canvas id="prodChart" height="200"></canvas>
+  </div>
+
+  <div style="background:var(--color-surface-base);border:1px solid var(--color-border-default);border-radius:12px;padding:24px;margin-bottom:24px">
+    <div class="section-heading">Recent Activity (last 30)</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr>
+          <th>Date</th><th>Product</th><th>Colour</th><th class="center">Size</th>
+          <th class="center">Qty</th><th>Return Type</th><th>Batch No</th><th>Supervisor</th>
+        </tr></thead>
+        <tbody><tr>
+          <td>2026-05-19</td>
+          <td>Acrylic Rain Proof</td>
+          <td>Burgundy</td>
+          <td class="center">5L</td>
+          <td class="center">1</td>
+          <td><span class="badge badge-pending"></span></td>
+          <td></td>
+          <td>SIPHO</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">Olympic Paints Returns Dashboard — Generated 19 May 2026 22:13</div>
+
+<script>
+const OLY_THEMES=['theme-light','theme-dark','theme-brand','theme-navy'];
+function olyTheme(t,btn){
+  document.documentElement.classList.remove(...OLY_THEMES);
+  document.documentElement.classList.add(t);
+  localStorage.setItem('oly-theme',t);
+  document.querySelectorAll('.theme-bar button').forEach(b=>b.classList.toggle('active',b===btn));
+}
+
+Chart.defaults.color=getComputedStyle(document.documentElement).getPropertyValue('--color-text-secondary').trim()||'#949390';
+
+new Chart(document.getElementById('rtChart'),{
+  type:'bar',
+  data:{labels:["Unknown"],datasets:[{data:[1],backgroundColor:["#5C6B7A"],borderRadius:4}]},
+  options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}
+});
+
+new Chart(document.getElementById('prodChart'),{
+  type:'bar',
+  data:{labels:["Acrylic Rain Proof"],datasets:[{data:[1],backgroundColor:'#F5C400',borderRadius:4}]},
+  options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}
+});
+</script>
+</body>
+</html>
